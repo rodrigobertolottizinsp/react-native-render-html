@@ -429,7 +429,7 @@ export default class HTML extends PureComponent {
             const renderersProps = {};
             if (Wrapper === Text) {
                 renderersProps.allowFontScaling = allowFontScaling;
-                renderersProps.selectable = this.props.textSelectable;
+                renderersProps.selectable = textSelectable;
             }
 
             if (this.renderers[tagName]) {
@@ -464,6 +464,7 @@ export default class HTML extends PureComponent {
             const textElement = data ?
                 <Text
                   allowFontScaling={allowFontScaling}
+                  selectable={textSelectable}
                   style={computeTextStyles(
                       element,
                       {

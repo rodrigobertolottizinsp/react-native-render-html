@@ -64,7 +64,7 @@ export function ul (htmlAttribs, children, convertedCSSStyles, passProps = {}) {
         passProps,
         styleSet: 'VIEW'
     });
-    const { allowFontScaling, rawChildren, nodeIndex, key, baseFontStyle, listsPrefixesRenderers } = passProps;
+    const { allowFontScaling, textSelectable, rawChildren, nodeIndex, key, baseFontStyle, listsPrefixesRenderers } = passProps;
     const baseFontSize = baseFontStyle.fontSize || 14;
 
     children = children && children.map((child, index) => {
@@ -94,7 +94,7 @@ export function ul (htmlAttribs, children, convertedCSSStyles, passProps = {}) {
                 );
             } else if (rawChild.parentTag === 'ol' && rawChild.tagName === 'li') {
                 prefix = listsPrefixesRenderers && listsPrefixesRenderers.ol ? listsPrefixesRenderers.ol(...rendererArgs) : (
-                    <Text allowFontScaling={allowFontScaling} style={{ marginRight: 5, fontSize: baseFontSize }}>{ index + 1 })</Text>
+                    <Text allowFontScaling={allowFontScaling} selectable={textSelectable} style={{ marginRight: 5, fontSize: baseFontSize }}>{ index + 1 })</Text>
                 );
             }
         }
@@ -144,30 +144,31 @@ export function iframe (htmlAttribs, children, convertedCSSStyles, passProps) {
     );
 }
 
-export function pre (htlmAttribs, children, convertedCSSStyles, passProps) {
+export function pre (htlmAttribs, children, convertedCSSStyles, {key, allowFontScaling, textSelectable}) {
     return (
         <Text
-          key={passProps.key}
+          key={key}
+          allowFontScaling={allowFontScaling} selectable={textSelectable}
           style={{ fontFamily: Platform.OS === 'android' ? 'monospace' : 'Menlo' }}>
             { children }
         </Text>
     );
 }
 
-export function br (htlmAttribs, children, convertedCSSStyles, passProps) {
+export function br (htlmAttribs, children, convertedCSSStyles, {allowFontScaling, emSize, key}) {
     return (
         <Text
-            allowFontScaling={passProps.allowFontScaling}
-            style={{ height: 1.2 * passProps.emSize, flex: 1 }}
-            key={passProps.key}
+            allowFontScaling={allowFontScaling}
+            style={{ height: 1.2 * emSize, flex: 1 }}
+            key={key}
         >
             {"\n"}
         </Text>
     );
 }
 
-export function textwrapper (htmlAttribs, children, convertedCSSStyles, { allowFontScaling, key, selectable }) {
+export function textwrapper (htmlAttribs, children, convertedCSSStyles, { allowFontScaling, textSelectable, key }) {
     return (
-        <Text selectable={selectable} allowFontScaling={allowFontScaling} key={key} style={convertedCSSStyles}>{ children }</Text>
+        <Text allowFontScaling={allowFontScaling} selectable={textSelectable} key={key} style={convertedCSSStyles}>{ children }</Text>
     );
 }
