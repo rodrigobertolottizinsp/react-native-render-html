@@ -39,6 +39,7 @@ export default class HTML extends PureComponent {
         onLinkPress: PropTypes.func,
         onParsed: PropTypes.func,
         imagesMaxWidth: PropTypes.number,
+        imagesResizeMode: PropTypes.string,
         staticContentMaxWidth: PropTypes.number,
         imagesInitialDimensions: PropTypes.shape({
             width: PropTypes.number,
@@ -61,6 +62,7 @@ export default class HTML extends PureComponent {
         ptSize: 1.3,
         staticContentMaxWidth: Dimensions.get('window').width,
         imagesMaxWidth: Dimensions.get('window').width,
+        imagesResizeMode: 'contain',
         ignoredTags: IGNORED_TAGS,
         ignoredStyles: [],
         baseFontStyle: { fontSize: 14 },

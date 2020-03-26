@@ -18,6 +18,7 @@ export default class HTMLImage extends PureComponent {
         width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         style: Image.propTypes.style,
         imagesMaxWidth: PropTypes.number,
+        imagesResizeMode: PropTypes.string,
         imagesInitialDimensions: PropTypes.shape({
             width: PropTypes.number,
             height: PropTypes.number
@@ -106,7 +107,7 @@ export default class HTMLImage extends PureComponent {
         return (
             <Image
               source={source}
-              style={[style, { width: this.state.width, height: this.state.height, resizeMode: 'cover' }]}
+              style={[style, { width: this.state.width, height: this.state.height, resizeMode: this.props.imagesResizeMode }]}
               {...props}
             />
         );
