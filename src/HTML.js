@@ -23,6 +23,7 @@ export default class HTML extends PureComponent {
         ignoredStyles: PropTypes.array.isRequired,
         allowedStyles: PropTypes.array,
         decodeEntities: PropTypes.bool.isRequired,
+        ignoreEmptyText: PropTypes.bool.isRequired,
         debug: PropTypes.bool.isRequired,
         listsPrefixesRenderers: PropTypes.object,
         ignoreNodesFunction: PropTypes.func,
@@ -54,6 +55,7 @@ export default class HTML extends PureComponent {
     static defaultProps = {
         renderers: HTMLRenderers,
         debug: false,
+        ignoreEmptyText: false,
         decodeEntities: true,
         emSize: 14,
         ptSize: 1.3,
@@ -244,7 +246,7 @@ export default class HTML extends PureComponent {
      * @memberof HTML
      */
     mapDOMNodesTORNElements (DOMNodes, parentTag = false, props = this.props) {
-        const { ignoreNodesFunction, ignoredTags, alterNode, alterData, alterChildren, tagsStyles, classesStyles } = props;
+        const { ignoreNodesFunction, ignoredTags, ignoreEmptyText, alterNode, alterData, alterChildren, tagsStyles, classesStyles } = props;
         let RNElements = DOMNodes.map((node, nodeIndex) => {
             let { children, data } = node;
             if (ignoreNodesFunction && ignoreNodesFunction(node, parentTag) === true) {
@@ -268,20 +270,22 @@ export default class HTML extends PureComponent {
                 const alteredChildren = alterChildren(node);
                 children = alteredChildren || children;
             }
-            // Remove whitespaces to check if it's just a blank text
-            // const strippedData = data && data.replace(/\s/g, '');
-            // NOT anymore, we might need blank spaces
+
 
             if (type === 'text') {
-                // if (!strippedData || !strippedData.length) {
-                //     // This is blank, don't render an useless additional component
-                //     return false;
-                // }
+
+                if(ignoreEmptyText){
+                    // Remove whitespaces to check if it's just a blank text
+                    const strippedData = data && data.trim() || '';
+                    if (!strippedData) {
+                        return false;
+                    }
+                }
 
                 if (
-                    node.parent &&
-                    node.parent.name &&
-                    PREFORMATTED_TAGS.indexOf(node.parent.name) === -1
+                    parent &&
+                    parent.name &&
+                    PREFORMATTED_TAGS.indexOf(parent.name) === -1
                 ) {
                     // Remove line breaks in non-pre-formatted tags
                     data = data.replace(/(\r\n|\n|\r)/gm, '');

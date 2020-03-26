@@ -79,6 +79,7 @@ Prop | Description | Type | Required/Default
 `html` | HTML string to parse and render | `string` | Required
 `uri` | *(experimental)* remote website to parse and render | `string` | Optional
 `decodeEntities` | Decode HTML entities of your content | `bool` | Optional, defaults to `true`
+`ignoreEmptyText` | Ignores empty text (all whitespaces) nodes. You may need to minify your HTML if this is `false`. When `true`, there may be some white spaces missing when combined with other nodes. | defaults to `false`
 `imagesMaxWidth` | Resize your images to this maximum width, see [images](#images) | `number` | Optional
 `staticContentMaxWidth` | Set a maximum width to non-responsive content (`<iframe> for instance`) | `number` | Optional
 `imagesInitialDimensions` | Default width and height to display while image's dimensions are being retrieved, see [images](#images) | `{ width: 100, height: 100 }` | Optional
