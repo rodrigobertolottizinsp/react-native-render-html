@@ -83,7 +83,7 @@ Prop | Description | Type | Required/Default
 `imagesMaxWidth` | Resize your images to this maximum width, see [images](#images) | `number` | Optional
 `imagesResizeMode` | Image `resizeMode` | default `contain`
 `staticContentMaxWidth` | Set a maximum width to non-responsive content (`<iframe> for instance`) | `number` | Optional
-`imagesInitialDimensions` | Default width and height to display while image's dimensions are being retrieved, see [images](#images) | `{ width: 100, height: 100 }` | Optional
+`imagesInitialDimensions` | Default width and height to display while image's dimensions are being retrieved, see [images](#images) | `{ width: undefined, height: undefined }` | Optional
 `onLinkPress` | Fired with the event, the href and an object with all attributes of the tag as its arguments when tapping a link | `function` | Optional
 `onParsed` | Fired when your HTML content has been parsed. Also useful to tweak your rendering, see [onParsed](#onparsed) | `function` | Optional
 `tagsStyles` | Provide your styles for specific HTML tags, see [styling](#styling) | `object` | Optional
@@ -213,7 +213,7 @@ A nice trick, demonstrated in the [basic usage of this module](#basic-usage) is 
 
 Please note that if you set width AND height through any mean of styling, `imagesMaxWidth` will be ignored.
 
-Before their dimensions have been properly retrieved, images will temporarily be rendered in 100px wide squares. You can override this default value with prop `imagesInitialDimensions`.
+Before their dimensions have been properly retrieved, images will temporarily be rendered in `undefined` (hidden) wide squares. You can override this default value with prop `imagesInitialDimensions`.
 
 Images with broken links will render an empty square with a thin border, similar to what safari renders in a webview.
 
