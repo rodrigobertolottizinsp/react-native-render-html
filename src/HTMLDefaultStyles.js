@@ -33,6 +33,7 @@ export function generateDefaultTextStyles (baseFontSize = BASE_FONT_SIZE) {
         b: { fontWeight: 'bold' },
         s: { textDecorationLine: 'line-through' },
         strong: { fontWeight: 'bold' },
+        strike: { textDecorationLine: 'line-through' },
         big: { fontSize: baseFontSize * 1.2 },
         small: { fontSize: baseFontSize * 0.8 },
         a: {
