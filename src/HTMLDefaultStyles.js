@@ -6,12 +6,12 @@ export function generateDefaultBlockStyles (baseFontSize = BASE_FONT_SIZE) {
         ul: {
             paddingLeft: 20,
             marginTop: baseFontSize / 2,
-            marginBottom: baseFontSize / 2
+            marginBottom: baseFontSize
         },
         ol: {
             paddingLeft: 20,
             marginTop: baseFontSize / 2,
-            marginBottom: baseFontSize / 2
+            marginBottom: baseFontSize
         },
         iframe: {
             height: 200
