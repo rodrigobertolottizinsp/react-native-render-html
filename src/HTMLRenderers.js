@@ -99,7 +99,7 @@ export function ul (htmlAttribs, children, convertedCSSStyles, passProps = {}) {
             }
         }
         return (
-            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row', marginBottom: 2, marginTop: 2  }}>
+            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row', marginBottom: 2, marginTop: 2 }}>
                 { prefix }
                 <View style={{ flex: 1 }}>{ child }</View>
             </View>
@@ -156,15 +156,24 @@ export function pre (htlmAttribs, children, convertedCSSStyles, {key, allowFontS
 }
 
 export function br (htlmAttribs, children, convertedCSSStyles, {allowFontScaling, emSize, key}) {
-    return (
-        <Text
-            allowFontScaling={allowFontScaling}
-            style={{ height: 1.2 * emSize, flex: 1 }}
-            key={key}
-        >
-            {"\n"}
-        </Text>
-    );
+  return (
+    // RN acts weirdly with empty new lines
+    // and we will most of the time end up with 2 new lines when there's nested text
+    <View
+      style={{ height: 1.2 * emSize, flex: 1 }}
+      key={key}
+    >
+    </View>
+  );
+    // return (
+    //   <Text
+    //     allowFontScaling={allowFontScaling}
+    //     style={{ height: 1.2 * emSize, flex: 1 }}
+    //     key={key}
+    //   >
+    //       {"\n"}
+    //   </Text>
+    // );
 }
 
 export function textwrapper (htmlAttribs, children, convertedCSSStyles, { allowFontScaling, textSelectable, key }) {
