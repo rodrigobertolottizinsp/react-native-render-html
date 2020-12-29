@@ -156,24 +156,24 @@ export function pre (htlmAttribs, children, convertedCSSStyles, {key, allowFontS
 }
 
 export function br (htlmAttribs, children, convertedCSSStyles, {allowFontScaling, emSize, key}) {
+  // return (
+  //   // RN acts weirdly with empty new lines
+  //   // and we will most of the time end up with 2 new lines when there's nested text
+  //   <View
+  //     style={{ height: 1.2 * emSize, flex: 1 }}
+  //     key={key}
+  //   >
+  //   </View>
+  // );
   return (
-    // RN acts weirdly with empty new lines
-    // and we will most of the time end up with 2 new lines when there's nested text
-    <View
+    <Text
+      allowFontScaling={allowFontScaling}
       style={{ height: 1.2 * emSize, flex: 1 }}
       key={key}
     >
-    </View>
+        {""}
+    </Text>
   );
-    // return (
-    //   <Text
-    //     allowFontScaling={allowFontScaling}
-    //     style={{ height: 1.2 * emSize, flex: 1 }}
-    //     key={key}
-    //   >
-    //       {"\n"}
-    //   </Text>
-    // );
 }
 
 export function textwrapper (htmlAttribs, children, convertedCSSStyles, { allowFontScaling, textSelectable, key }) {
