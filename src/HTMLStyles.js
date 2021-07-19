@@ -153,6 +153,15 @@ export function _getElementCSSClasses (htmlAttribs) {
     return htmlAttribs.class.split(' ');
 }
 
+// to handle non-RN alignments
+const textAlignMap = {
+    'start': 'left',
+    'end': 'right',
+    'justify-all': 'justify',
+    'match-parent': 'inherit',
+    '.': 'center',
+};
+
 /**
  * Converts a html style to its equavalent react native style
  * @param {object} css: object of key value css strings
@@ -163,20 +172,14 @@ export function _getElementCSSClasses (htmlAttribs) {
 function cssToRNStyle (css, styleset, { emSize, ptSize, ignoredStyles, allowedStyles }) {
     const styleProps = stylePropTypes[styleset];
     return Object.keys(css)
-        .filter((key) => allowedStyles ? allowedStyles.indexOf(key) !== -1 : true)
-        .filter((key) => (ignoredStyles || []).indexOf(key) === -1)
-        .map((key) => [key, css[key]])
-        .map(([key, value]) => {
-            // Key convert
-            return [
-                key
-                    .split('-')
-                    .map((item, index) => index === 0 ? item : item[0].toUpperCase() + item.substr(1))
-                    .join(''),
-                value
-            ];
-        })
-        .map(([key, value]) => {
+        .filter((key) => allowedStyles ? allowedStyles.indexOf(key) !== -1 : (ignoredStyles ? ignoredStyles.indexOf(key) === -1 : true) )
+        .map((k) => {
+            let key = k.split('-')
+                .map((item, index) => index === 0 ? item : item[0].toUpperCase() + item.substr(1))
+                .join('');
+
+            let value = css[k];
+
             if (styleProps.indexOf(key) === -1) {
                 return undefined;
             }
@@ -186,6 +189,11 @@ function cssToRNStyle (css, styleset, { emSize, ptSize, ignoredStyles, allowedSt
                     return undefined;
                 }
                 value = value.replace('!important', '');
+
+                if (key == 'textAlign') {
+                  value = textAlignMap[value] || value;
+                }
+
                 // See if we can use the percentage directly
                 if (value.search('%') !== -1 && PERC_SUPPORTED_STYLES.indexOf(key) !== -1) {
                     return [key, value];
