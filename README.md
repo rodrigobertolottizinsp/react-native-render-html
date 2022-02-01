@@ -5,6 +5,8 @@ Forked from https://github.com/archriss/react-native-render-html to do a few cha
 npm:
 "react-native-render-html": "github:cristianoccazinsp/react-native-render-html",
 
+developing: npm install --legacy-peer-deps
+Legacy peer deps is required, otherwise prettier won't work.
 
 An iOS/Android pure javascript react-native component that renders your HTML into 100% native views. It's made to be extremely customizable and easy to use and aims at being able to render anything you throw at it.
 
