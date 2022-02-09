@@ -116,7 +116,11 @@ export function ul(htmlAttribs, children, convertedCSSStyles, passProps = {}) {
               <Text
                 allowFontScaling={allowFontScaling}
                 selectable={textSelectable}
-                style={{marginRight: 5, fontSize: baseFontSize}}>
+                style={{
+                  marginRight: 5,
+                  color: baseFontStyle.color,
+                  fontSize: baseFontSize,
+                }}>
                 {index + 1})
               </Text>
             );
