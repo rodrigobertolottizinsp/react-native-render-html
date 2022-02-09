@@ -358,6 +358,25 @@ export default class HTML extends PureComponent {
       if (type === 'tag') {
         if (children) {
           // Recursively map all children with this method
+          // but first, try to collapse redundant tags (e.g., <div><div>...<div>content</div>...</div>)
+          if (children.length == 1) {
+            let base = children[0];
+            let tag = base.name;
+            let attrs = base.attribs || {};
+            let styles = attrs.style || '';
+
+            while (base.children?.length == 1 && base.children[0].name == tag) {
+              base = base.children[0];
+              attrs = Object.assign({}, attrs, base.attribs);
+              styles = base.attribs?.style
+                ? `${styles}; ${base.attribs?.style}`
+                : styles;
+            }
+            attrs.style = styles;
+            base.attribs = attrs;
+            children = [base];
+          }
+
           children = this.associateRawTexts(
             this.mapDOMNodesTORNElements(children, name),
           );
