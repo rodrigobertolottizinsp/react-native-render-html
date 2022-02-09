@@ -548,7 +548,7 @@ export default class HTML extends PureComponent {
           } = element;
           const Wrapper = wrapper === 'Text' ? Text : View;
           const key = `${wrapper}-${parentIndex}-${nodeIndex}-${tagName}-${index}-${parentTag}`;
-          const convertedCSSStyles =
+          let convertedCSSStyles =
             attribs && attribs.style
               ? cssStringToRNStyle(
                   attribs.style,
@@ -574,6 +574,26 @@ export default class HTML extends PureComponent {
           if (Wrapper === Text) {
             renderersProps.allowFontScaling = allowFontScaling;
             renderersProps.selectable = textSelectable;
+          }
+
+          // Android fix: compute text styles in the top most text component
+          // as some styles are not respected when nested text is used
+          let textStyles;
+          if (Wrapper === Text || data) {
+            textStyles = computeTextStyles(element, {
+              defaultTextStyles: this.defaultTextStyles,
+              tagsStyles,
+              classesStyles,
+              baseFontStyle,
+              emSize,
+              ptSize,
+              ignoredStyles,
+              allowedStyles,
+            });
+
+            if (Wrapper == Text) {
+              convertedCSSStyles = {...textStyles, ...convertedCSSStyles};
+            }
           }
 
           if (this.renderers[tagName]) {
@@ -607,16 +627,7 @@ export default class HTML extends PureComponent {
             <Text
               allowFontScaling={allowFontScaling}
               selectable={textSelectable}
-              style={computeTextStyles(element, {
-                defaultTextStyles: this.defaultTextStyles,
-                tagsStyles,
-                classesStyles,
-                baseFontStyle,
-                emSize,
-                ptSize,
-                ignoredStyles,
-                allowedStyles,
-              })}>
+              style={textStyles}>
               {data}
             </Text>
           ) : (

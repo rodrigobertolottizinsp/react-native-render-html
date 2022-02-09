@@ -9,6 +9,28 @@ import {
   generateDefaultTextStyles,
 } from './HTMLDefaultStyles';
 
+// whitelist text style tags
+// since we use also inheritance form parents
+const ALLOWED_TEXT_STYLES = new Set([
+  'fontSize',
+  'fontWeight',
+  'fontFamily',
+  'fontStyle',
+  'fontVariant',
+  'lineHeight',
+  'letterSpacing',
+  'color',
+  'opacity',
+  'backgroundColor',
+  'textAlign',
+  'textDecorationLine',
+  'textDecorationLine',
+  'textDecorationStyle',
+  'textDecorationColor',
+  'writingDirection',
+  'alignSelf',
+]);
+
 /**
  * Converts a html style string to an object
  * @param str: the style string
@@ -124,12 +146,17 @@ function _recursivelyComputeParentTextStyles(element, passProps, styles = []) {
   const defaultTagStyles = defaultTextStyles[name];
 
   // Merge those according to their priority level
-  const mergedStyles = {
+  let mergedStyles = {
     ...defaultTagStyles,
     ...userTagStyles,
     ...classStyles,
     ...HTMLAttribsStyles,
   };
+  for (let k in mergedStyles) {
+    if (!ALLOWED_TEXT_STYLES.has(k)) {
+      delete mergedStyles[k];
+    }
+  }
 
   styles.push(mergedStyles);
 
