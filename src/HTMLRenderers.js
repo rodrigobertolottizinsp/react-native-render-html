@@ -4,6 +4,8 @@ import {WebView} from 'react-native-webview';
 import {_constructStyles, _getElementClassStyles} from './HTMLStyles';
 import HTMLImage from './HTMLImage';
 
+const IS_ANDROID = Platform.OS === 'android';
+
 export function a(htmlAttribs, children, convertedCSSStyles, passProps) {
   const style = _constructStyles({
     tagName: 'a',
@@ -186,7 +188,7 @@ export function pre(
       key={key}
       allowFontScaling={allowFontScaling}
       selectable={textSelectable}
-      style={{fontFamily: Platform.OS === 'android' ? 'monospace' : 'Menlo'}}>
+      style={{fontFamily: IS_ANDROID ? 'monospace' : 'Menlo'}}>
       {children}
     </Text>
   );
@@ -196,17 +198,18 @@ export function br(
   htlmAttribs,
   children,
   convertedCSSStyles,
-  {allowFontScaling, emSize, key},
+  {allowFontScaling, emSize, key, ...passProps},
 ) {
   // nested text element behave erratically when using height
   // case 1: text \n text... : we need a line break and font size doesn't matter
   // case 2: <div><br></div> : we need a line break with some height
   // case 3: <div><b><br></b></div> : case where nested text adds oddly and we end up with 2 lines
   // hence: we use font size / 2
+  // for android, just use 1 as it always has some height.
   return (
     <Text
       allowFontScaling={allowFontScaling}
-      style={{fontSize: emSize / 2, flex: 1}}
+      style={{fontSize: IS_ANDROID ? 1 : emSize / 2, flex: 1}}
       key={key}>
       {'\n'}
     </Text>
