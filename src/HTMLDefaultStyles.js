@@ -59,8 +59,8 @@ export function generateDefaultTextStyles(baseFontSize = BASE_FONT_SIZE) {
       marginBottom: baseFontSize / 2,
     },
     p: {
-      marginTop: baseFontSize,
-      marginBottom: baseFontSize,
+      marginTop: 0,
+      marginBottom: 0,
     },
   };
 }

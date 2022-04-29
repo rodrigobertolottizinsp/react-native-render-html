@@ -548,6 +548,7 @@ export default class HTML extends PureComponent {
           } = element;
           const Wrapper = wrapper === 'Text' ? Text : View;
           const key = `${wrapper}-${parentIndex}-${nodeIndex}-${tagName}-${index}-${parentTag}`;
+
           let convertedCSSStyles =
             attribs && attribs.style
               ? cssStringToRNStyle(
@@ -611,13 +612,14 @@ export default class HTML extends PureComponent {
             // If a custom renderer is available for this tag
             return customRenderer(attribs, childElements, convertedCSSStyles, {
               ...props,
-              parentWrapper: wrapper,
+              parentWrapper: parentWrapper,
+              wrapper: wrapper,
               parentTag,
               nodeIndex,
               parentIndex,
               key,
               data,
-              rawChildren: children,
+              element,
               ...renderersProps,
             });
           }

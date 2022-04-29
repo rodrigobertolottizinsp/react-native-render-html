@@ -30,7 +30,7 @@ export function a(htmlAttribs, children, convertedCSSStyles, passProps) {
   } else {
     return (
       <TouchableOpacity onPress={onPress} key={key}>
-        {children || data}
+        {children || <Text>{data}</Text>}
       </TouchableOpacity>
     );
   }
@@ -70,7 +70,7 @@ export function ul(htmlAttribs, children, convertedCSSStyles, passProps = {}) {
   const {
     allowFontScaling,
     textSelectable,
-    rawChildren,
+    element,
     nodeIndex,
     key,
     baseFontStyle,
@@ -81,7 +81,7 @@ export function ul(htmlAttribs, children, convertedCSSStyles, passProps = {}) {
   children =
     children &&
     children.map((child, index) => {
-      const rawChild = rawChildren[index];
+      const rawChild = element.children?.[index];
       let prefix = false;
       const rendererArgs = [
         htmlAttribs,
@@ -198,21 +198,29 @@ export function br(
   htlmAttribs,
   children,
   convertedCSSStyles,
-  {allowFontScaling, emSize, key},
+  {allowFontScaling, emSize, key, parentWrapper, element},
 ) {
   // nested text element behave erratically when using height
   // case 1: text \n text... : we need a line break and font size doesn't matter
   // case 2: <div><br></div> : we need a line break with some height
   // case 3: <div><b><br></b></div> : case where nested text adds oddly and we end up with 2 lines
   // hence: we use font size / 2
-  return (
-    <Text
-      allowFontScaling={allowFontScaling}
-      style={{fontSize: emSize / 2, flex: 1}}
-      key={key}>
-      {'\n'}
-    </Text>
-  );
+
+  // if not a text wrapper, use a text and new line
+  // or if a br between children, return new line as well
+  // otherwise, a blank character should be enough as the text element will make space
+  if (parentWrapper != 'Text' || element?.parent?.children?.length > 2) {
+    return (
+      <Text
+        allowFontScaling={allowFontScaling}
+        style={{fontSize: emSize / 2}}
+        key={key}>
+        {'\n'}
+      </Text>
+    );
+  } else {
+    return <Text key={key}>{'\u200B'}</Text>;
+  }
 }
 
 export function textwrapper(
