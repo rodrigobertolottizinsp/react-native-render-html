@@ -198,7 +198,7 @@ export function br(
   htlmAttribs,
   children,
   convertedCSSStyles,
-  {allowFontScaling, emSize, key, ...passProps},
+  {allowFontScaling, emSize, key},
 ) {
   // nested text element behave erratically when using height
   // case 1: text \n text... : we need a line break and font size doesn't matter
