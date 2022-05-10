@@ -122,7 +122,8 @@ export function ul(htmlAttribs, children, convertedCSSStyles, passProps = {}) {
                   marginRight: 5,
                   color: baseFontStyle.color,
                   fontSize: baseFontSize,
-                }}>
+                }}
+              >
                 {index + 1})
               </Text>
             );
@@ -131,7 +132,8 @@ export function ul(htmlAttribs, children, convertedCSSStyles, passProps = {}) {
       return (
         <View
           key={`list-${nodeIndex}-${index}-${key}`}
-          style={{flexDirection: 'row', marginBottom: 2, marginTop: 2}}>
+          style={{flexDirection: 'row', marginBottom: 2, marginTop: 2}}
+        >
           {prefix}
           <View style={{flex: 1}}>{child}</View>
         </View>
@@ -188,7 +190,8 @@ export function pre(
       key={key}
       allowFontScaling={allowFontScaling}
       selectable={textSelectable}
-      style={{fontFamily: IS_ANDROID ? 'monospace' : 'Menlo'}}>
+      style={{fontFamily: IS_ANDROID ? 'monospace' : 'Menlo'}}
+    >
       {children}
     </Text>
   );
@@ -214,7 +217,8 @@ export function br(
       <Text
         allowFontScaling={allowFontScaling}
         style={{fontSize: emSize / 2}}
-        key={key}>
+        key={key}
+      >
         {'\n'}
       </Text>
     );
@@ -234,7 +238,8 @@ export function textwrapper(
       allowFontScaling={allowFontScaling}
       selectable={textSelectable}
       key={key}
-      style={convertedCSSStyles}>
+      style={convertedCSSStyles}
+    >
       {children}
     </Text>
   );

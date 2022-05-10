@@ -152,7 +152,8 @@ export default class HTMLImage extends PureComponent {
           borderColor: 'lightgray',
           overflow: 'hidden',
           justifyContent: 'center',
-        }}>
+        }}
+      >
         {this.props.alt ? (
           <Text style={{textAlign: 'center', fontStyle: 'italic'}}>
             {this.props.alt}

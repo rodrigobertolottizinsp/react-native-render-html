@@ -629,7 +629,8 @@ export default class HTML extends PureComponent {
             <Text
               allowFontScaling={allowFontScaling}
               selectable={textSelectable}
-              style={textStyles}>
+              style={textStyles}
+            >
               {data}
             </Text>
           ) : (
@@ -682,7 +683,8 @@ export default class HTML extends PureComponent {
         <View style={{flex: 1, alignItems: 'center'}}>
           <Text
             allowFontScaling={allowFontScaling}
-            style={{fontStyle: 'italic', fontSize: 16}}>
+            style={{fontStyle: 'italic', fontSize: 16}}
+          >
             Could not load {this.props.uri}
           </Text>
         </View>
