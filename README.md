@@ -1,9 +1,11 @@
 # react-native-render-html
 
+2022: Re-forked from: cristianoccazinsp/react-native-render-html to keep updated.
+
 Forked from https://github.com/archriss/react-native-render-html to do a few changes
 
 npm:
-"react-native-render-html": "github:cristianoccazinsp/react-native-render-html",
+"react-native-render-html": "github:rodrigobertolotti/react-native-render-html",
 
 developing: npm install --legacy-peer-deps
 Legacy peer deps is required, otherwise prettier won't work.
