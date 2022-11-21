@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "buffer": "^5.6.1",
+    "deprecated-react-native-prop-types": "^2.3.0",
     "events": "^3.2.0",
     "html-entities": "^1.2.0",
     "htmlparser2": "3.10.1"

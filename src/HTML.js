@@ -1,12 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Text,
-  ViewPropTypes,
-  ActivityIndicator,
-  Dimensions,
-} from 'react-native';
+import {View, Text, ActivityIndicator, Dimensions} from 'react-native';
+import {ViewPropTypes} from 'deprecated-react-native-prop-types';
 import {
   cssStringToRNStyle,
   _getElementClassStyles,

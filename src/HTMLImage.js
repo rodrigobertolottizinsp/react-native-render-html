@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Image, View, Text} from 'react-native';
 import PropTypes from 'prop-types';
+import {ImagePropTypes} from 'deprecated-react-native-prop-types';
 
 export default class HTMLImage extends PureComponent {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class HTMLImage extends PureComponent {
     alt: PropTypes.string,
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    style: Image.propTypes.style,
+    style: ImagePropTypes.style,
     imagesMaxWidth: PropTypes.number,
     imagesResizeMode: PropTypes.string,
     imagesInitialDimensions: PropTypes.shape({
